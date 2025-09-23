@@ -9,6 +9,5 @@ wheels/
 # Virtual environments
 .venv
 .ruff_cache
-database.db
 .vscode
 .mypy_cache
