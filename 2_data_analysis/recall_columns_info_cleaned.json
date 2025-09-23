@@ -1,0 +1,290 @@
+{
+  "dataset_name": "recalls",
+  "total_columns": 47,
+  "columns": [
+    "status",
+    "city",
+    "state",
+    "country",
+    "classification",
+    "openfda",
+    "product_type",
+    "event_id",
+    "recalling_firm",
+    "address_1",
+    "postal_code",
+    "voluntary_mandated",
+    "initial_firm_notification",
+    "distribution_pattern",
+    "recall_number",
+    "product_description",
+    "product_quantity",
+    "reason_for_recall",
+    "recall_initiation_date",
+    "center_classification_date",
+    "termination_date",
+    "report_date",
+    "code_info",
+    "classification_clean",
+    "quantity_numeric",
+    "defect_labeling_error",
+    "defect_sterility_breach",
+    "defect_container_closure",
+    "defect_blister_seal",
+    "defect_moisture_ingress",
+    "defect_foreign_substance",
+    "defect_potency_issues",
+    "defect_manufacturing_defect",
+    "defect_stability_degradation",
+    "defect_documentation_error",
+    "defect_cross_contamination",
+    "defect_packaging_defect",
+    "defect_tablet_defect",
+    "primary_defect",
+    "packaging_format",
+    "dosage_form",
+    "days_to_resolution",
+    "recall_year",
+    "severity_score",
+    "estimated_cost_impact",
+    "risk_score",
+    "risk_level"
+  ],
+  "column_details": {
+    "status": {
+      "dtype": "object",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "city": {
+      "dtype": "object",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "state": {
+      "dtype": "object",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "country": {
+      "dtype": "object",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "classification": {
+      "dtype": "object",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "openfda": {
+      "dtype": "object",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "product_type": {
+      "dtype": "object",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "event_id": {
+      "dtype": "int64",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "recalling_firm": {
+      "dtype": "object",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "address_1": {
+      "dtype": "object",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "postal_code": {
+      "dtype": "object",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "voluntary_mandated": {
+      "dtype": "object",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "initial_firm_notification": {
+      "dtype": "object",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "distribution_pattern": {
+      "dtype": "object",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "recall_number": {
+      "dtype": "object",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "product_description": {
+      "dtype": "object",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "product_quantity": {
+      "dtype": "object",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "reason_for_recall": {
+      "dtype": "object",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "recall_initiation_date": {
+      "dtype": "object",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "center_classification_date": {
+      "dtype": "object",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "termination_date": {
+      "dtype": "object",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "report_date": {
+      "dtype": "int64",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "code_info": {
+      "dtype": "object",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "classification_clean": {
+      "dtype": "object",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "quantity_numeric": {
+      "dtype": "float64",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "defect_labeling_error": {
+      "dtype": "bool",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "defect_sterility_breach": {
+      "dtype": "bool",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "defect_container_closure": {
+      "dtype": "bool",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "defect_blister_seal": {
+      "dtype": "bool",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "defect_moisture_ingress": {
+      "dtype": "bool",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "defect_foreign_substance": {
+      "dtype": "bool",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "defect_potency_issues": {
+      "dtype": "bool",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "defect_manufacturing_defect": {
+      "dtype": "bool",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "defect_stability_degradation": {
+      "dtype": "bool",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "defect_documentation_error": {
+      "dtype": "bool",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "defect_cross_contamination": {
+      "dtype": "bool",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "defect_packaging_defect": {
+      "dtype": "bool",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "defect_tablet_defect": {
+      "dtype": "bool",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "primary_defect": {
+      "dtype": "object",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "packaging_format": {
+      "dtype": "object",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "dosage_form": {
+      "dtype": "object",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "days_to_resolution": {
+      "dtype": "float64",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "recall_year": {
+      "dtype": "int64",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "severity_score": {
+      "dtype": "int64",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "estimated_cost_impact": {
+      "dtype": "int64",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "risk_score": {
+      "dtype": "int64",
+      "non_null_count": 495,
+      "null_count": 0
+    },
+    "risk_level": {
+      "dtype": "object",
+      "non_null_count": 495,
+      "null_count": 0
+    }
+  }
+}

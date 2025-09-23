@@ -1,0 +1,56 @@
+{
+  "total_recalls": 639,
+  "date_range": {
+    "earliest": "2010-03-01 00:00:00",
+    "latest": "2025-08-18 00:00:00"
+  },
+  "classification_breakdown": {
+    "II": 296,
+    "III": 264,
+    "I": 79
+  },
+  "primary_defects": {
+    "labeling_error": 259,
+    "cross_contamination": 166,
+    "sterility_breach": 60,
+    "packaging_defect": 53,
+    "container_closure": 39,
+    "foreign_substance": 22,
+    "blister_seal": 21,
+    "moisture_ingress": 7,
+    "documentation_error": 6,
+    "potency_issues": 2,
+    "manufacturing_defect": 2,
+    "stability_degradation": 2
+  },
+  "packaging_formats": {
+    "unknown": 215,
+    "bottles": 211,
+    "vials": 85,
+    "blisters": 53,
+    "syringes": 35,
+    "tubes": 30,
+    "pouches": 7,
+    "ampoules": 3
+  },
+  "risk_levels": {
+    "Low": 275,
+    "Medium": 165,
+    "High": 131,
+    "Critical": 68
+  },
+  "top_firms": {
+    "Hospira Inc.": 26,
+    "FDC Limited": 11,
+    "Pfizer Inc.": 11,
+    "VistaPharm, Inc.": 9,
+    "Dr. Reddy's Laboratories, Inc.": 9,
+    "Lupin Pharmaceuticals Inc.": 8,
+    "Fresenius Kabi USA, LLC": 8,
+    "Baxter Healthcare Corp.": 8,
+    "Teva Pharmaceuticals USA": 7,
+    "Glenmark Pharmaceuticals Inc., USA": 7
+  },
+  "estimated_total_cost": "258013808",
+  "average_resolution_days": 545.4319852941177
+}
