@@ -1,12 +1,12 @@
-import warnings
-from pathlib import Path
 import json
 import sqlite3
+import warnings
+from pathlib import Path
+
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 from wordcloud import WordCloud  # type: ignore
-
 
 warnings.filterwarnings("ignore")
 
@@ -274,9 +274,11 @@ class RecordTable:
         # Compute severity proxy as in _plot_severity_correlation
         severity_by_defect = (
             self.df.groupby("primary_defect")["classification_clean"].apply(
-                lambda x: (x == "I").sum() * 3
-                + (x == "II").sum() * 2
-                + (x == "III").sum() * 1
+                lambda x: (
+                    (x == "I").sum() * 3
+                    + (x == "II").sum() * 2
+                    + (x == "III").sum() * 1
+                )
             )
             / self.df.groupby("primary_defect").size()
         )
@@ -296,7 +298,7 @@ class RecordTable:
         ax2.set_ylabel("Primary Defect")
         # Add value labels without relying on Patch geometry accessors
         y_positions = ax2.get_yticks()
-        for y, val in zip(y_positions, severity_by_defect.values):
+        for y, val in zip(y_positions, severity_by_defect.values, strict=False):
             ax2.annotate(
                 f"{val:.2f}",
                 (val + 0.02, y),
@@ -681,9 +683,11 @@ class RecordTable:
         """Plot defect severity correlation."""
         severity_by_defect = (
             self.df.groupby("primary_defect")["classification_clean"].apply(
-                lambda x: (x == "I").sum() * 3
-                + (x == "II").sum() * 2
-                + (x == "III").sum() * 1
+                lambda x: (
+                    (x == "I").sum() * 3
+                    + (x == "II").sum() * 2
+                    + (x == "III").sum() * 1
+                )
             )
             / self.df.groupby("primary_defect").size()
         )
