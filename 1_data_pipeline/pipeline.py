@@ -5,14 +5,15 @@ Production-ready pipeline for extracting, transforming, and analyzing
 FDA drug recall data focused on packaging defects.
 """
 
-import time
-import re
+import json
 import logging
 import math
-import json
+import re
+import time
 from pathlib import Path
-import requests
+
 import pandas as pd
+import requests
 
 # Configure logging
 logging.basicConfig(

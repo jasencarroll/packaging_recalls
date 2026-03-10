@@ -7,9 +7,10 @@ with focus on packaging defects and regulatory insights.
 
 import sqlite3
 from pathlib import Path
-import streamlit as st
+
 import pandas as pd
 import plotly.express as px  # type: ignore
+import streamlit as st
 
 # Page configuration
 st.set_page_config(
@@ -162,16 +163,16 @@ def create_classification_charts(df):
         # Classification distribution pie chart
         classification_order = ["III", "II", "I"]
         class_counts = df["classification_clean"].value_counts()
-        
+
         # Reorder the data according to the desired classification order
         ordered_labels = []
         ordered_values = []
-        
+
         for class_type in classification_order:
             if class_type in class_counts.index:
                 ordered_labels.append(f"Class {class_type}")
                 ordered_values.append(class_counts[class_type])
-        
+
         fig_pie = px.pie(
             values=ordered_values,
             names=ordered_labels,
