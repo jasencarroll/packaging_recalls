@@ -1,60 +1,111 @@
-# FDA Packaging Recalls Analysis - Interview Summary
+# packaging_recalls
 
-## 🎯 Project Overview
-**Objective**: Transform FDA recall data into actionable business intelligence for QMS operations
-**Dataset**: 587 packaging-related recalls (2020-2024)
-**Tools**: Python, Pandas, Streamlit, Advanced Analytics
+FDA packaging recalls data pipeline and analysis. Extracts recall data from the FDA API, runs analytics on 587 packaging-related recalls (2020-2024), and serves an interactive dashboard.
 
-## 📊 Key Technical Achievements
+## Table of Contents
 
-### Data Pipeline Engineering
-- Automated FDA API extraction and transformation
-- Robust data cleaning with NaN handling
-- Risk scoring algorithm development
-- SQLite database integration
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+- [Development](#development)
+- [Project Structure](#project-structure)
+- [Deployment](#deployment)
+- [License](#license)
 
-### Advanced Analytics
-- Unpacked "other" category using NLP techniques
-- Cost impact modeling by classification
-- Correlation analysis for risk validation
-- Time-series trend identification
+## Features
 
-### Business Intelligence Dashboard
-- Interactive Streamlit application
-- Real-time filtering and analysis
-- Executive summary with KPIs
-- Strategic recommendations framework
+- **FDA API Pipeline** — automated extraction and transformation of recall data
+- **Data Analysis** — risk scoring, NLP categorization, cost impact modeling, time-series trends
+- **Visualizations** — correlation heatmaps, defect distributions, severity breakdowns, wordclouds
+- **Interactive Dashboard** — Streamlit app with real-time filtering and KPIs
+- **SQLite Storage** — persistent local database for processed recall data
 
-## 💰 Business Impact Quantified
+## Tech Stack
 
-| Metric | Value | Business Significance |
-|--------|--------|----------------------|
-| Class I Avg Cost | $2.4M | 100x more expensive than Class III |
-| Labeling Errors | 161 recalls | $37M+ in preventable costs |
-| Risk-Cost Correlation | 0.80 | Validates predictive model accuracy |
-| Hidden Packaging Defects | 81 recalls | Misclassified in "other" category |
+- **Language:** Python 3.11+
+- **Package Manager:** [uv](https://docs.astral.sh/uv/)
+- **Data:** Pandas, Matplotlib, Seaborn, Plotly
+- **NLP:** WordCloud
+- **Dashboard:** Streamlit
+- **Type Checking:** mypy with pandas-stubs
+- **Data Source:** [FDA openFDA API](https://open.fda.gov/)
 
-## 🚀 Interview Talking Points
+## Getting Started
 
-### Technical Depth
-"I built an end-to-end data pipeline that extracts FDA recall data, applies machine learning for categorization, and delivers insights through an interactive dashboard. The system identified $37M in preventable costs from labeling errors alone."
+### Prerequisites
 
-### Business Acumen
-"My analysis revealed that preventing a single Class I recall ($2.4M average) can fund extensive quality improvements. This changes the ROI conversation from cost center to profit protection."
+- Python 3.11+
+- [uv](https://docs.astral.sh/uv/)
 
-### Strategic Thinking
-"The pipeline uncovered that 223 recalls were miscategorized as 'other' - including 81 packaging defects. This represents a blind spot in current risk management that my system addresses."
+### Installation
 
-## 🎯 QMS Integration Strategy
+```bash
+git clone https://github.com/jasencarroll/packaging_recalls.git
+cd packaging_recalls
+uv sync
+```
 
-### Immediate Value (30-60 days)
-- Deploy dashboard for regulatory compliance monitoring
-- Implement risk scoring for supplier audits
-- Establish cost-benefit framework for quality investments
+## Development
 
-### Long-term Impact (6-12 months)
-- Predictive models for recall prevention
-- Automated quality alert systems
-- Industry benchmarking capabilities
+```bash
+# Step 1: Run the data pipeline
+uv run python 1_data_pipeline/pipeline.py
 
-This project demonstrates the exact intersection of technical skills, business insight, and regulatory knowledge that modern QMS roles require.
+# Step 2: Run analysis
+uv run python 2_data_analysis/analysis.py
+
+# Step 3: Launch the dashboard
+uv run streamlit run 3_data_dashboard/app.py
+```
+
+### Type Checking
+
+```bash
+uv run mypy .
+```
+
+## Project Structure
+
+```
+packaging_recalls/
+├── 1_data_pipeline/
+│   ├── pipeline.py                    # FDA API extraction and transformation
+│   └── fda_recall_data/
+│       ├── fda_packaging_recalls_processed.csv
+│       └── recall_summary.json
+├── 2_data_analysis/
+│   ├── analysis.py                    # Analytics and risk scoring
+│   ├── database.db                    # SQLite database
+│   ├── recall_columns_info.json
+│   ├── recall_columns_info_cleaned.json
+│   └── visualizations/
+│       ├── all_primary_defects_distribution.png
+│       ├── correlation_heatmap.png
+│       ├── cost_by_classification.png
+│       ├── recall_overview.png
+│       ├── recall_reasons_wordcloud.png
+│       ├── severity_by_defect.png
+│       └── time_series.png
+├── 3_data_dashboard/
+│   ├── app.py                         # Streamlit dashboard
+│   └── README.md
+├── pyproject.toml
+├── uv.lock
+├── railway.json
+└── LICENSE
+```
+
+## Deployment
+
+### Railway
+
+```bash
+railway init
+railway up
+```
+
+The `railway.json` config handles the build and start commands automatically.
+
+## License
+
+MIT License - see [LICENSE](LICENSE) for details.
