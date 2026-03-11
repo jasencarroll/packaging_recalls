@@ -1,111 +1,134 @@
-# packaging_recalls
+# FDA Packaging Recall Analytics
 
-FDA packaging recalls data pipeline and analysis. Extracts recall data from the FDA API, runs analytics on 587 packaging-related recalls (2020-2024), and serves an interactive dashboard.
+A full-stack analytics dashboard that transforms raw FDA drug recall data into actionable insights. Built on the openFDA API, it processes 495 packaging-related recalls (2020-2024) through a data pipeline and presents them via an interactive dashboard with KPIs, classification breakdowns, defect analysis, and timeline trends.
 
-## Table of Contents
+**[Live Demo](https://packagingrecalls-production.up.railway.app)**
 
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Getting Started](#getting-started)
-- [Development](#development)
-- [Project Structure](#project-structure)
-- [Deployment](#deployment)
-- [License](#license)
+## Why This Exists
 
-## Features
+The FDA publishes drug recall data through the openFDA API, but the raw data is difficult to work with: inconsistent categorizations, no risk scoring, and no cost impact estimates. This project solves that by building a pipeline that extracts, cleans, and enriches the data, then serves it through a dashboard that makes patterns visible at a glance. Quality assurance teams, compliance officers, and anyone tracking pharmaceutical packaging safety can use it to spot trends, identify high-risk defect categories, and understand the financial impact of recalls.
 
-- **FDA API Pipeline** — automated extraction and transformation of recall data
-- **Data Analysis** — risk scoring, NLP categorization, cost impact modeling, time-series trends
-- **Visualizations** — correlation heatmaps, defect distributions, severity breakdowns, wordclouds
-- **Interactive Dashboard** — Streamlit app with real-time filtering and KPIs
-- **SQLite Storage** — persistent local database for processed recall data
+## Dashboard Features
+
+- **KPI Cards** -- total recalls, average cost impact, Class I critical percentage, total estimated cost impact
+- **Classification Analysis** -- pie chart and bar chart breakdown of Class I / II / III recalls with cost distribution
+- **Defect Analysis** -- top defect categories (with NLP-based reclassification of "other" entries), risk level distribution
+- **Timeline Trends** -- monthly recall counts and annual classification breakdown
+- **Insights Panel** -- business intelligence summary with top defects by frequency and cost
+- **Data Table** -- paginated, filterable recall records
 
 ## Tech Stack
 
-- **Language:** Python 3.11+
-- **Package Manager:** [uv](https://docs.astral.sh/uv/)
-- **Data:** Pandas, Matplotlib, Seaborn, Plotly
-- **NLP:** WordCloud
-- **Dashboard:** Streamlit
-- **Type Checking:** mypy with pandas-stubs
-- **Data Source:** [FDA openFDA API](https://open.fda.gov/)
+| Layer | Technology |
+|---|---|
+| **Backend** | FastAPI, SQLAlchemy, PostgreSQL, Pandas |
+| **Frontend** | React 19, Vite, Tailwind CSS v4, Recharts, shadcn/ui |
+| **Data Pipeline** | Python scripts for openFDA API extraction, NLP categorization, risk scoring, cost modeling |
+| **Tooling** | uv, Ruff (Python); Bun, Biome (TypeScript) |
+| **CI** | GitHub Actions (backend lint, backend test, frontend lint, frontend build) |
+| **Deployment** | Railway (multi-stage Dockerfile) |
 
 ## Getting Started
 
 ### Prerequisites
 
 - Python 3.11+
+- Node.js or [Bun](https://bun.sh/)
 - [uv](https://docs.astral.sh/uv/)
+- PostgreSQL
 
 ### Installation
 
 ```bash
 git clone https://github.com/jasencarroll/packaging_recalls.git
 cd packaging_recalls
+```
+
+### Backend
+
+```bash
+cd backend
 uv sync
+uv run uvicorn app.main:app --reload --port 8000
 ```
 
-## Development
+### Frontend
 
 ```bash
-# Step 1: Run the data pipeline
-uv run python 1_data_pipeline/pipeline.py
-
-# Step 2: Run analysis
-uv run python 2_data_analysis/analysis.py
-
-# Step 3: Launch the dashboard
-uv run streamlit run 3_data_dashboard/app.py
+cd frontend
+bun install
+bun run dev          # Dev server on :5173, proxies /api to :8000
 ```
 
-### Type Checking
+### Data Pipeline
 
 ```bash
-uv run mypy .
+# From the project root
+uv sync
+uv run python 1_data_pipeline/pipeline.py      # Fetch from openFDA API
+uv run python 2_data_analysis/analysis.py      # Run analysis and generate visualizations
+```
+
+## Testing & Linting
+
+```bash
+# Backend
+cd backend
+uv run pytest -v
+uv run ruff check .
+uv run ruff format --check .
+
+# Frontend
+cd frontend
+bun run lint
+bun run build
 ```
 
 ## Project Structure
 
 ```
 packaging_recalls/
+├── backend/
+│   ├── app/
+│   │   ├── main.py              # FastAPI app, CORS, static file serving
+│   │   ├── database.py          # SQLAlchemy engine and session
+│   │   ├── config.py            # Settings (DATABASE_URL, etc.)
+│   │   └── routes/
+│   │       ├── recalls.py       # Analytics endpoints (KPIs, classification, defects, timeline)
+│   │       └── health.py        # Health check
+│   └── tests/
+├── frontend/
+│   ├── src/
+│   │   ├── App.tsx
+│   │   ├── pages/Dashboard.tsx
+│   │   └── components/
+│   │       ├── KPICard.tsx
+│   │       ├── ClassificationCharts.tsx
+│   │       ├── DefectCharts.tsx
+│   │       ├── TimelineCharts.tsx
+│   │       └── InsightsPanel.tsx
+│   └── vite.config.ts
 ├── 1_data_pipeline/
-│   ├── pipeline.py                    # FDA API extraction and transformation
-│   └── fda_recall_data/
-│       ├── fda_packaging_recalls_processed.csv
-│       └── recall_summary.json
+│   ├── pipeline.py              # FDA API extraction and transformation
+│   └── fda_recall_data/         # Raw and processed CSV/JSON output
 ├── 2_data_analysis/
-│   ├── analysis.py                    # Analytics and risk scoring
-│   ├── database.db                    # SQLite database
-│   ├── recall_columns_info.json
-│   ├── recall_columns_info_cleaned.json
-│   └── visualizations/
-│       ├── all_primary_defects_distribution.png
-│       ├── correlation_heatmap.png
-│       ├── cost_by_classification.png
-│       ├── recall_overview.png
-│       ├── recall_reasons_wordcloud.png
-│       ├── severity_by_defect.png
-│       └── time_series.png
-├── 3_data_dashboard/
-│   ├── app.py                         # Streamlit dashboard
-│   └── README.md
-├── pyproject.toml
-├── uv.lock
+│   ├── analysis.py              # Data cleaning, risk scoring, visualization generation
+│   └── visualizations/          # Static PNG charts
+├── Dockerfile                   # Multi-stage build (Bun + uv)
 ├── railway.json
-└── LICENSE
+├── pyproject.toml
+└── uv.lock
 ```
 
 ## Deployment
 
-### Railway
+Deployed on [Railway](https://railway.com/) using a multi-stage Dockerfile:
 
-```bash
-railway init
-railway up
-```
+1. **Stage 1** -- Builds the React frontend with Bun
+2. **Stage 2** -- Installs the FastAPI backend with uv, copies the built frontend, and serves everything as a single container
 
-The `railway.json` config handles the build and start commands automatically.
+The production build serves the React SPA from FastAPI with a catch-all route for client-side routing. Health checks hit `/api/health`.
 
 ## License
 
-MIT License - see [LICENSE](LICENSE) for details.
+MIT License -- see [LICENSE](LICENSE) for details.
