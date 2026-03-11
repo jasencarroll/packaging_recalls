@@ -1,4 +1,5 @@
 import ClassificationCharts from '@/components/ClassificationCharts';
+import DataTable from '@/components/DataTable';
 import DefectCharts from '@/components/DefectCharts';
 import InsightsPanel from '@/components/InsightsPanel';
 import KPICard from '@/components/KPICard';
@@ -84,6 +85,12 @@ export default function Dashboard() {
 				<section>
 					<h2 className="mb-4 text-lg font-semibold text-text">Recall Timeline</h2>
 					<TimelineCharts />
+				</section>
+
+				{/* Data Table Section */}
+				<section>
+					<h2 className="mb-4 text-lg font-semibold text-text">Data Table</h2>
+					<DataTable />
 				</section>
 
 				{/* Insights Section */}
