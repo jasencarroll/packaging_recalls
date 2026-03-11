@@ -7,20 +7,75 @@ on:
     branches: [main]
 
 jobs:
-  lint:
+  backend-lint:
+    name: Backend Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - uses: astral-sh/setup-uv@v6
-        with:
-          enable-cache: true
-
+      - uses: astral-sh/setup-uv@v4
+      - run: uv python install 3.11
       - name: Install dependencies
+        working-directory: backend
         run: uv sync
-
       - name: Ruff check
+        working-directory: backend
         run: uv run ruff check .
-
-      - name: Ruff format check
+      - name: Ruff format
+        working-directory: backend
         run: uv run ruff format --check .
+
+  backend-test:
+    name: Backend Tests
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: packaging_recalls_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v4
+      - run: uv python install 3.11
+      - name: Install dependencies
+        working-directory: backend
+        run: uv sync
+      - name: Run tests
+        working-directory: backend
+        run: uv run pytest -v
+        env:
+          TEST_DATABASE_URL: postgresql://postgres:postgres@localhost/packaging_recalls_test
+
+  frontend-lint:
+    name: Frontend Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - name: Install dependencies
+        working-directory: frontend
+        run: bun install
+      - name: Biome lint
+        working-directory: frontend
+        run: bun run lint
+
+  frontend-build:
+    name: Frontend Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - name: Install dependencies
+        working-directory: frontend
+        run: bun install
+      - name: Build
+        working-directory: frontend
+        run: bun run build

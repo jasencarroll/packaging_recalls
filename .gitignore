@@ -8,6 +8,27 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Tool caches
 .ruff_cache
-.vscode
 .mypy_cache
+.pytest_cache
+
+# Editors
+.vscode
+.idea
+
+# OS
+.DS_Store
+
+# Frontend
+node_modules/
+
+# Env
+.env
+
+# Database
+*.db
+
+# Data
+data/

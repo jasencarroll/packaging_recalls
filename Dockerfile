@@ -1,10 +1,19 @@
-FROM ghcr.io/astral-sh/uv:python3.11-bookworm-slim
+# Stage 1: Build frontend
+FROM oven/bun:1 AS frontend-build
+WORKDIR /app/frontend
+COPY frontend/package.json frontend/bun.lock* ./
+RUN bun install
+COPY frontend/ .
+RUN bun run build
+
+# Stage 2: Production
+FROM ghcr.io/astral-sh/uv:python3.11-bookworm-slim AS production
 WORKDIR /app
 
-# Install build dependencies for wordcloud (requires gcc)
-RUN apt-get update && apt-get install -y --no-install-recommends gcc python3-dev && rm -rf /var/lib/apt/lists/*
+COPY backend/pyproject.toml backend/uv.lock* ./backend/
+RUN cd backend && uv sync --no-dev
 
-COPY pyproject.toml uv.lock* ./
-RUN uv sync --no-dev
-COPY . .
-CMD sh -c "uv run streamlit run 3_data_dashboard/app.py --server.port ${PORT:-8080} --server.address 0.0.0.0 --server.headless true"
+COPY backend/ ./backend/
+COPY --from=frontend-build /app/frontend/dist ./frontend/dist
+
+CMD sh -c "uv run --directory backend uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"
