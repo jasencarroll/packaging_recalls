@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 interface DefectCost {
 	defect: string;
-	cost: number;
+	avg_cost: number;
 }
 
 interface InsightsData {
@@ -132,7 +132,7 @@ export default function InsightsPanel() {
 									<tr key={d.defect} className="border-b border-border/50">
 										<td className="py-2 text-sm">{d.defect}</td>
 										<td className="py-2 text-right text-sm font-medium text-warning">
-											{formatCurrency(d.cost)}
+											{formatCurrency(d.avg_cost)}
 										</td>
 									</tr>
 								))}

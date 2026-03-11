@@ -4,6 +4,7 @@ Usage:
     cd backend && uv run python scripts/migrate_data.py
 """
 
+import os
 import sqlite3
 from pathlib import Path
 
@@ -13,7 +14,7 @@ from sqlalchemy import create_engine, text
 SQLITE_PATH = (
     Path(__file__).resolve().parent.parent.parent / "2_data_analysis" / "database.db"
 )
-PG_URL = "postgresql://localhost/packaging_recalls"
+PG_URL = os.environ.get("DATABASE_URL", "postgresql://localhost/packaging_recalls")
 
 
 def main() -> None:
