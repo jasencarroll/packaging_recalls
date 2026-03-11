@@ -2,7 +2,7 @@
 
 A full-stack analytics dashboard that transforms raw FDA drug recall data into actionable insights. Built on the openFDA API, it processes 495 packaging-related recalls (2020-2024) through a data pipeline and presents them via an interactive dashboard with KPIs, classification breakdowns, defect analysis, and timeline trends.
 
-**[Live Demo](https://packagingrecalls-production.up.railway.app)**
+**[Live Demo](https://packaging-recalls.jasencarroll.com)**
 
 ## Why This Exists
 
