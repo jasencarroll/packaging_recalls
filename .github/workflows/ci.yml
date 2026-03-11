@@ -53,6 +53,7 @@ jobs:
         run: uv run pytest -v
         env:
           TEST_DATABASE_URL: postgresql://postgres:postgres@localhost/packaging_recalls_test
+          DATABASE_URL: postgresql://postgres:postgres@localhost/packaging_recalls_test
 
   frontend-lint:
     name: Frontend Lint
