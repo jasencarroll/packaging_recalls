@@ -13,7 +13,7 @@ class Settings(BaseSettings):
         "http://localhost:8080",
     ]
 
-    model_config = {"env_prefix": "", "case_sensitive": True}
+    model_config = {"env_prefix": ""}
 
 
 settings = Settings()
