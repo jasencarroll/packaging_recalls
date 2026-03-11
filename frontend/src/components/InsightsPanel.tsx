@@ -68,7 +68,7 @@ export default function InsightsPanel() {
 						/>
 						<InsightRow
 							label="Avg Resolution Time"
-							value={`${data.avg_resolution_days.toFixed(1)} days`}
+							value={`${(data.avg_resolution_days ?? 0).toFixed(1)} days`}
 						/>
 						<InsightRow
 							label="Most Common Defect"

@@ -121,7 +121,7 @@ export default function ClassificationCharts() {
 								cy="50%"
 								outerRadius={110}
 								dataKey="value"
-								label={({ name, percent }) => `${name} (${percent.toFixed(1)}%)`}
+								label={({ name, percent }) => `${name} (${(percent ?? 0).toFixed(1)}%)`}
 								labelLine={true}
 								stroke="none"
 							>
